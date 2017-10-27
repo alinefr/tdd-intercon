@@ -1,0 +1,10 @@
+version: '2'
+services:
+  web_server:
+    container_name: hello_world
+    image: nginx
+    ports:
+      - "80:80"
+    volumes: 
+      - "/srv/docker/hello_world/html:/usr/share/nginx/html"
+    restart: always

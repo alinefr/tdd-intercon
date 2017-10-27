@@ -5,14 +5,18 @@
 # The Inspec reference, with examples and extensive documentation, can be
 # found at http://inspec.io/docs/reference/resources/
 
-unless os.windows?
-  # This is an example test, replace with your own test.
-  describe user('root'), :skip do
-    it { should exist }
-  end
+describe service('docker') do
+  it { should be_installed }
+  it { should be_enabled }
+  it { should be_running }
 end
 
-# This is an example test, replace it with your own test.
-describe port(80), :skip do
-  it { should_not be_listening }
+describe docker_container('hello_world') do
+  it { should exist }
+  it { should be_running }
+  its('image') { should eq 'nginx' }
+end
+
+describe command('curl http://localhost') do
+  its('stdout') { should match(/Hello World/) }
 end
